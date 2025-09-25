@@ -7,7 +7,7 @@ Postmail est une gem Ruby qui fournit un mécanisme flexible d’envoi d’e‑m
 Dans votre `Gemfile`, ajoutez :
 
 ```ruby
-gem "postmail", path: "path/to/postmail"
+gem "postmail_ruby", path: "path/to/postmail"
 ```
 
 Puis exécutez `bundle install` pour installer la gem.
@@ -19,8 +19,8 @@ Postmail enregistre deux méthodes de livraison personnalisées pour Action Mai
 Si vous souhaitez configurer explicitement la gem (par exemple hors de Rails), vous pouvez appeler :
 
 ```ruby
-require "postmail"
-Postmail.configure
+require "postmail_ruby"
+PostmailRuby.configure
 ```
 
 Cette méthode lit les variables d’environnement, enregistre les méthodes de livraison et définit la méthode d’envoi par défaut (`delivery_method`) sur Action Mailer.

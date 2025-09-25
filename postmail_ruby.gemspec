@@ -18,9 +18,6 @@ Gem::Specification.new do |spec|
     Dir['lib/**/*', 'README.md'].reject { |f| File.directory?(f) }
   end
 
-  # Required Ruby version
-  spec.required_ruby_version = '~> 2.5'
-
   # Dependencies
   spec.add_runtime_dependency 'mail', '~> 2.7'
   # No explicit dependency on rails; the Railtie is loaded if Rails is present
