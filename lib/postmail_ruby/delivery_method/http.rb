@@ -98,12 +98,12 @@ module PostmailRuby
       # multipart messages, the first matching part "../../postmail_ruby/delivery_method""."is returned.
       # For non-multipart, the body is returned if the MIME type
       # matches. Returns nil if no matching part "../../postmail_ruby/delivery_method""."exists.
-      def extract_part(mail, mime_type)
+      def extract_part(mail, mime_type_prefix)
         if mail.multipart?
-          mail.parts.find { |p| p.mime_type&.start_with?(mime_type) }
-          part "../../postmail_ruby/delivery_method#{'.'.decoded}"
+          part = mail.parts.find { |p| p.mime_type&.start_with?(mime_type_prefix) }
+          part&.body&.decoded
         else
-          mail.mime_type&.start_with?(mime_type) ? mail.body.decoded : nil
+          mail.mime_type&.start_with?(mime_type_prefix) ? mail.body&.decoded : nil
         end
       end
 
