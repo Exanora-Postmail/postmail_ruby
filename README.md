@@ -7,7 +7,7 @@ Postmail est une gem Ruby qui fournit un mécanisme flexible d’envoi d’e‑m
 Dans votre `Gemfile`, ajoutez :
 
 ```ruby
-gem "postmail_ruby", path: "path/to/postmail"
+gem "postmail_ruby", '~> 0.1.1'
 ```
 
 Puis exécutez `bundle install` pour installer la gem.
