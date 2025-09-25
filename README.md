@@ -1,20 +1,20 @@
-# Postmail
+# PostmailRuby
 
-Postmail est une gem Ruby qui fournit un mécanisme flexible d’envoi d’e‑mails pour Ruby on Rails ou tout projet utilisant Action Mailer.  La gem propose deux méthodes d’expédition : soit par **SMTP**, soit par une **API HTTP**.  Tous les paramètres de connexion et le choix de la méthode d’envoi se pilotent via des variables d’environnement afin de simplifier la configuration lors du déploiement.
+PostmailRuby est une gem Ruby qui fournit un mécanisme flexible d’envoi d’e‑mails pour Ruby on Rails ou tout projet utilisant Action Mailer.  La gem propose deux méthodes d’expédition : soit par **SMTP**, soit par une **API HTTP**.  Tous les paramètres de connexion et le choix de la méthode d’envoi se pilotent via des variables d’environnement afin de simplifier la configuration lors du déploiement.
 
 ## Installation
 
 Dans votre `Gemfile`, ajoutez :
 
 ```ruby
-gem "postmail_ruby", '~> 0.1.1'
+gem "postmail_ruby", '~> 0.1.2'
 ```
 
 Puis exécutez `bundle install` pour installer la gem.
 
 ## Utilisation dans Rails
 
-Postmail enregistre deux méthodes de livraison personnalisées pour Action Mailer : `:postmail_smtp` et `:postmail_api`.  La gem est livrée avec un **Railtie** qui détecte Rails et configure automatiquement Action Mailer en fonction des variables d’environnement ci‑dessous.  En pratique, il suffit de définir vos variables d’environnement et de vous assurer que la gem est chargée.
+PostmailRuby enregistre deux méthodes de livraison personnalisées pour Action Mailer : `:postmail_smtp` et `:postmail_api`.  La gem est livrée avec un **Railtie** qui détecte Rails et configure automatiquement Action Mailer en fonction des variables d’environnement ci‑dessous.  En pratique, il suffit de définir vos variables d’environnement et de vous assurer que la gem est chargée.
 
 Si vous souhaitez configurer explicitement la gem (par exemple hors de Rails), vous pouvez appeler :
 
@@ -32,7 +32,7 @@ Toutes les options de configuration se font via des variables d’environnement,
 | Variable | Description | Valeur par défaut |
 |---------|-------------|------------------|
 | `POSTMAIL_DELIVERY_METHOD` | Choix de la méthode d’envoi : `smtp` (envoi via serveur SMTP) ou `api` (envoi via appel HTTP). | `smtp` |
-| `POSTMAIL_DISABLE_RAILS_SMTP` | Lorsque défini à `true`, Postmail désactive les paramètres SMTP par défaut de Rails (`ActionMailer::Base.smtp_settings`) pour éviter des retours en arrière accidentels. Utiliser cette option est recommandé si vous envoyez exclusivement via l’API. | `false` |
+| `POSTMAIL_DISABLE_RAILS_SMTP` | Lorsque défini à `true`, PostmailRuby désactive les paramètres SMTP par défaut de Rails (`ActionMailer::Base.smtp_settings`) pour éviter des retours en arrière accidentels. Utiliser cette option est recommandé si vous envoyez exclusivement via l’API. | `false` |
 | `POSTMAIL_API_ENDPOINT` | URL complète de l’endpoint HTTP pour l’envoi par API (par exemple `https://postal.exanora.com/api/v1/send/message`). Obligatoire si `POSTMAIL_DELIVERY_METHOD=api`. | – |
 | `POSTMAIL_API_KEY` | Clé d’API utilisée pour authentifier les requêtes HTTP (envoyée dans l’en‑tête `X-Server-API-Key`). | – |
 | `POSTMAIL_API_TIMEOUT` | Temps d’attente maximum en secondes lors de l’appel HTTP. | `10` |
@@ -42,7 +42,7 @@ Toutes les options de configuration se font via des variables d’environnement,
 | `POSTMAIL_SMTP_PASSWORD` | Mot de passe pour l’authentification SMTP. | `nil` |
 | `POSTMAIL_SMTP_AUTHENTICATION` | Type d’authentification SMTP : `plain`, `login` ou `cram_md5`. | `plain` |
 | `POSTMAIL_SMTP_ENABLE_STARTTLS_AUTO` | Active STARTTLS. Mettre `false` pour désactiver. | `true` |
-| `POSTMAIL_SMTP_SSL` | Lorsque défini à `true`, Postmail établit une connexion SSL/TLS implicite (comme un port 465). | `false` |
+| `POSTMAIL_SMTP_SSL` | Lorsque défini à `true`, PostmailRuby établit une connexion SSL/TLS implicite (comme un port 465). | `false` |
 | `POSTMAIL_SMTP_OPEN_TIMEOUT` | Durée maximale (en secondes) pour établir la connexion SMTP. | `30` |
 | `POSTMAIL_SMTP_READ_TIMEOUT` | Durée maximale (en secondes) pour la lecture des réponses SMTP. | `30` |
 
@@ -54,7 +54,7 @@ Rails utilise un mécanisme SMTP par défaut si aucune méthode d’envoi n’es
 POSTMAIL_DISABLE_RAILS_SMTP=true
 ```
 
-Lorsque cette variable est à `true`, Postmail réinitialise `ActionMailer::Base.smtp_settings` à un hash vide et définit `ActionMailer::Base.delivery_method` sur `:postmail_api` ou `:postmail_smtp` en fonction de `POSTMAIL_DELIVERY_METHOD`.
+Lorsque cette variable est à `true`, PostmailRuby réinitialise `ActionMailer::Base.smtp_settings` à un hash vide et définit `ActionMailer::Base.delivery_method` sur `:postmail_api` ou `:postmail_smtp` en fonction de `POSTMAIL_DELIVERY_METHOD`.
 
 ### Exemple de configuration
 
@@ -82,9 +82,9 @@ POSTMAIL_DISABLE_RAILS_SMTP=false
 
 ## Fonctionnement
 
-Lorsque la méthode d’envoi est `api`, Postmail sérialise votre message et l’envoie en `POST` vers l’endpoint HTTP.  Le corps de la requête est JSON et inclut les adresses, le sujet, les corps texte/HTML et les pièces jointes (encodées en Base64).  La clé API est transmise via l’en‑tête `X-Server-API-Key`.
+Lorsque la méthode d’envoi est `api`, PostmailRuby sérialise votre message et l’envoie en `POST` vers l’endpoint HTTP.  Le corps de la requête est JSON et inclut les adresses, le sujet, les corps texte/HTML et les pièces jointes (encodées en Base64).  La clé API est transmise via l’en‑tête `X-Server-API-Key`.
 
-Lorsque la méthode d’envoi est `smtp`, Postmail utilise les paramètres SMTP renseignés pour établir la connexion avec le serveur de messagerie via la gem `mail`.  Les options SSL/TLS, timeouts et authentification sont héritées des variables d’environnement.
+Lorsque la méthode d’envoi est `smtp`, PostmailRuby utilise les paramètres SMTP renseignés pour établir la connexion avec le serveur de messagerie via la gem `mail`.  Les options SSL/TLS, timeouts et authentification sont héritées des variables d’environnement.
 
 ## Contribuer
 

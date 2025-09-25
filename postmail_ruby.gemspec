@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['d.j.bidossessi@gmail.com']
 
   spec.summary       = 'Delivery methods for sending mail via SMTP or HTTP using environment variables'
-  spec.description   = 'Postmail is a simple gem that adds custom Action Mailer delivery methods allowing you to send email via either SMTP or an HTTP API. The delivery method and all settings are configurable via environment variables so it can be easily switched at runtime without code changes.'
+  spec.description   = 'PostmailRuby is a simple gem that adds custom Action Mailer delivery methods allowing you to send email via either SMTP or an HTTP API. The delivery method and all settings are configurable via environment variables so it can be easily switched at runtime without code changes.'
   spec.homepage      = 'https://postmail.exanora.com'
   spec.license       = 'MIT'
 

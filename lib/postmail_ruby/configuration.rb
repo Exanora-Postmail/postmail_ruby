@@ -51,7 +51,7 @@ module PostmailRuby
     end
 
     # Returns true if the default Rails SMTP configuration should be disabled.
-    # When this is true, Postmail will clear `config.action_mailer.smtp_settings`.
+    # When this is true, PostmailRuby will clear `config.action_mailer.smtp_settings`.
     def disable_default_smtp?
       @disable_default_smtp
     end

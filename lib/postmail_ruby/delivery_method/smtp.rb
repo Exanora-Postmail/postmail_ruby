@@ -5,10 +5,10 @@ require 'mail'
 module PostmailRuby
   module DeliveryMethod
     # Provides a custom SMTP delivery method that reads its
-    # configuration from Postmail::Configuration. This class is
+    # configuration from PostmailRuby::Configuration. This class is
     # essentially a thin wrapper around Mail::SMTP, passing in
     # settings derived from environment variables. It allows
-    # Action Mailer to use Postmail configuration seamlessly.
+    # Action Mailer to use PostmailRuby configuration seamlessly.
     class SMTP
       attr_reader :settings
 

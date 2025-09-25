@@ -3,7 +3,7 @@
 require_relative 'postmail_ruby/version'
 require_relative 'postmail_ruby/configuration'
 
-# Main entry point for the Postmail gem. This module exposes
+# Main entry point for the PostmailRuby gem. This module exposes
 # configuration and helper methods to integrate the gem into a
 # Ruby on Rails application. When loaded in a Rails environment,
 # a Railtie is required automatically to register custom delivery
@@ -15,7 +15,7 @@ module PostmailRuby
     # object reads environment variables to determine how Postmail
     # should behave (API vs SMTP, credentials, endpoints, etc.).
     #
-    # @return [Postmail::Configuration]
+    # @return [PostmailRuby::Configuration]
     attr_accessor :configuration
 
     # Yields the configuration instance to a block so that callers
@@ -24,12 +24,12 @@ module PostmailRuby
     # used to change settings in an initializer.
     #
     # @example Override the API endpoint
-    #   Postmail.configure do |config|
+    #   PostmailRuby.configure do |config|
     #     config.api_endpoint = "https://my-postal.example/api/v1/send/message"
     #   end
     #
-    # @yieldparam [Postmail::Configuration] configuration
-    # @return [Postmail::Configuration]
+    # @yieldparam [PostmailRuby::Configuration] configuration
+    # @return [PostmailRuby::Configuration]
     def configure
       self.configuration ||= Configuration.new
       return configuration unless block_given?
@@ -43,7 +43,7 @@ module PostmailRuby
     # created. This method should be used internally when a
     # configuration is required.
     #
-    # @return [Postmail::Configuration]
+    # @return [PostmailRuby::Configuration]
     def config
       self.configuration ||= Configuration.new
     end
@@ -51,7 +51,7 @@ module PostmailRuby
 end
 
 # Require delivery method classes. These require statements are
-# placed outside of the Postmail module definition so that they
+# placed outside of the PostmailRuby module definition so that they
 # are loaded when the gem is required. They rely on Postmail
 # configuration, so configuration must be loaded first.
 require_relative 'postmail_ruby/delivery_method/http'

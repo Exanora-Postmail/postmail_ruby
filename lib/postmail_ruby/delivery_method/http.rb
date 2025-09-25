@@ -64,7 +64,7 @@ module PostmailRuby
       # omitted from the final hash for brevity.
       #
       # @param [Mail::Message] mail
-      # @param [Postmail::Configuration] config
+      # @param [PostmailRuby::Configuration] config
       # @return [Hash]
       def build_payload(mail, _config)
         {

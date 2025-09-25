@@ -3,18 +3,18 @@
 require 'rails/railtie'
 
 module PostmailRuby
-  # Railtie for integrating Postmail with Rails. This railtie
+  # Railtie for integrating PostmailRuby with Rails. This railtie
   # registers custom delivery methods with Action Mailer and
-  # configures Action Mailer based on Postmail configuration. It
+  # configures Action Mailer based on PostmailRuby configuration. It
   # also offers an option to disable the default SMTP settings
-  # configured by Rails, allowing Postmail to be the sole mail
+  # configured by Rails, allowing PostmailRuby to be the sole mail
   # provider in a Rails application.
   class Railtie < ::Rails::Railtie
     initializer 'postmail_ruby.initialize' do
       ActiveSupport.on_load(:action_mailer) do
         # Register our delivery methods
-        ActionMailer::Base.add_delivery_method :postmail_smtp, Postmail::DeliveryMethod::SMTP
-        ActionMailer::Base.add_delivery_method :postmail_api, Postmail::DeliveryMethod::HTTP
+        ActionMailer::Base.add_delivery_method :postmail_smtp, PostmailRuby::DeliveryMethod::SMTP
+        ActionMailer::Base.add_delivery_method :postmail_api, PostmailRuby::DeliveryMethod::HTTP
 
         # Determine which delivery method to use based on configuration
         delivery_method = Postmail.config.delivery_method
@@ -28,7 +28,7 @@ module PostmailRuby
         # If using SMTP, apply our SMTP settings and optionally
         # clear any default Rails SMTP settings. The
         # disable_default_smtp? flag removes Rails SMTP settings
-        # before applying Postmail settings.
+        # before applying PostmailRuby settings.
         if delivery_method == :smtp
           if PostmailRuby.config.disable_default_smtp?
             # Clear any pre-existing SMTP settings so they do not
