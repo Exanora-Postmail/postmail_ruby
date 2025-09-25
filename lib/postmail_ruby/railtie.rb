@@ -17,7 +17,7 @@ module PostmailRuby
         ActionMailer::Base.add_delivery_method :postmail_api, PostmailRuby::DeliveryMethod::HTTP
 
         # Determine which delivery method to use based on configuration
-        delivery_method = Postmail.config.delivery_method
+        delivery_method = PostmailRuby.config.delivery_method
         ActionMailer::Base.delivery_method = case delivery_method
                                              when :api
                                                :postmail_api

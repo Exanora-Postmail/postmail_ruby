@@ -18,7 +18,7 @@ module PostmailRuby
       # Initialize the HTTP delivery method. Accepts a hash of
       # options that may override configuration defaults. Options
       # are stored but not used directly; configuration is read
-      # from Postmail.config for each delivery to ensure the most
+      # from PostmailRuby.config for each delivery to ensure the most
       # current environment variables are respected.
       #
       # @param [Hash] options delivery options (currently unused)
@@ -34,7 +34,7 @@ module PostmailRuby
       #
       # @param [Mail::Message] mail the message to send
       def deliver!(mail)
-        config = Postmail.config
+        config = PostmailRuby.config
         uri = URI.parse(config.api_endpoint)
 
         http = Net::HTTP.new(uri.host, uri.port)
@@ -94,10 +94,10 @@ module PostmailRuby
         Array(value).join(',')
       end
 
-      # Extract a specific MIME part "../../postmail/delivery_method""."from the message. For
-      # multipart messages, the first matching part "../../postmail/delivery_method""."is returned.
+      # Extract a specific MIME part "../../postmail_ruby/delivery_method""."from the message. For
+      # multipart messages, the first matching part "../../postmail_ruby/delivery_method""."is returned.
       # For non-multipart, the body is returned if the MIME type
-      # matches. Returns nil if no matching part "../../postmail/delivery_method""."exists.
+      # matches. Returns nil if no matching part "../../postmail_ruby/delivery_method""."exists.
       def extract_part(mail, mime_type)
         if mail.multipart?
           mail.parts.find { |p| p.mime_type&.start_with?(mime_type) }

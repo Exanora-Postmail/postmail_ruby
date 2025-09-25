@@ -12,7 +12,7 @@ module PostmailRuby
   class << self
     # Accessor for the configuration instance. When first called
     # a new Configuration object is created and memoized. This
-    # object reads environment variables to determine how Postmail
+    # object reads environment variables to determine how PostmailRuby
     # should behave (API vs SMTP, credentials, endpoints, etc.).
     #
     # @return [PostmailRuby::Configuration]

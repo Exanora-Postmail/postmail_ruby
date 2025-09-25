@@ -28,7 +28,7 @@ module PostmailRuby
       #
       # @param [Mail::Message] mail the message to send
       def deliver!(mail)
-        config_settings = Postmail.config.smtp_settings
+        config_settings = PostmailRuby.config.smtp_settings
         smtp_settings = config_settings.merge(settings)
         smtp = ::Mail::SMTP.new(smtp_settings)
         smtp.deliver!(mail)
